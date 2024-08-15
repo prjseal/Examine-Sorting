@@ -1,4 +1,5 @@
-﻿using MyProject.Services;
+﻿using MyProject.Search;
+using MyProject.Services;
 using Umbraco.Cms.Core.Composing;
 
 namespace MyProject.Composers
@@ -8,6 +9,7 @@ namespace MyProject.Composers
         public void Compose(IUmbracoBuilder builder)
         {
             builder.Services.AddTransient<ISearchService, SearchService>();
+            builder.Services.ConfigureOptions<ConfigureIndexOptions>();
         }
     }
 }

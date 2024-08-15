@@ -9,6 +9,7 @@ namespace MyProject.Services
     public class SearchService : ISearchService
     {
         private readonly IExamineManager _examineManager;
+        private const string SORT_FIELD_PREFIX = "__Sort_";
 
         public SearchService(IExamineManager examineManager)
         {
@@ -33,10 +34,10 @@ namespace MyProject.Services
             if (terms != null && terms.Length > 0)
             {
                 query!.And().Group(q => q
-                    .GroupedOr(new[] { "nodeName" }, terms), BooleanOperation.Or);
+                    .GroupedOr(new[] { UmbracoExamineFieldNames.NodeNameFieldName }, terms), BooleanOperation.Or);
             }
 
-            return query.OrderBy(new SortableField("nodeName", SortType.String)).Execute();
+            return query.OrderBy(new SortableField(SORT_FIELD_PREFIX + UmbracoExamineFieldNames.NodeNameFieldName, SortType.String)).Execute();
         }
     }
 }
